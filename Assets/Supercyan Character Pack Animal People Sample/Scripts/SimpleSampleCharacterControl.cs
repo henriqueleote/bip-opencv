@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Supercyan.AnimalPeopleSample
 {
     public class SimpleSampleCharacterControl : MonoBehaviour
     {
+
+        private float desiredX = 0;
         private float m_moveSpeed = 4f;
         private float m_jumpForce = 7f;
         private float fallMultiplier = 2f;
@@ -22,6 +26,7 @@ namespace Supercyan.AnimalPeopleSample
 
         private bool m_isGrounded;
         private bool m_isIdle;
+        private bool m_canMove = true;
 
         private List<Collider> m_collisions = new List<Collider>();
 
@@ -36,10 +41,7 @@ namespace Supercyan.AnimalPeopleSample
         }
         public void SetSpeed(float speed)
         {
-            if(speed < 20)
-            {
-                m_moveSpeed = speed;
-            }
+            m_moveSpeed = speed;
         }
 
         public float GetJump()
@@ -130,15 +132,51 @@ namespace Supercyan.AnimalPeopleSample
 
         private void Update()
         {
-            if (!m_jumpInput && Input.GetKey(KeyCode.Space))
+            if (!m_jumpInput && !m_isIdle)
             {
-                m_jumpInput = true;
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    m_jumpInput = true;
+                }
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    StartCoroutine(MoveRight());
+                }
+                else if (Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    StartCoroutine(MoveLeft());
+                }
             }
 
-            if(m_rigidBody.velocity.y < 0)
+            if (m_rigidBody.velocity.y < 0)
             {
                 m_rigidBody.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
             }
+        }
+
+        private IEnumerator MoveLeft()
+        {
+            if (transform.position.x > -0.5f && m_canMove)
+            {
+                m_canMove = false;
+                desiredX -= 4.0f;
+                yield return new WaitForSeconds(0.2f);
+                m_canMove = true;
+            }
+
+            yield return null;
+        }
+
+        private IEnumerator MoveRight()
+        {
+            if (transform.position.x < 0.5f && m_canMove)
+            {
+                m_canMove = false;
+                desiredX += 4.0f;
+                yield return new WaitForSeconds(0.2f);
+                m_canMove = true;
+            }
+            yield return null;
         }
 
         private void FixedUpdate()
@@ -156,6 +194,17 @@ namespace Supercyan.AnimalPeopleSample
             if (!m_isIdle)
             {
                 Vector3 forwardMove = transform.forward * m_moveSpeed * Time.fixedDeltaTime;
+
+                Debug.Log(desiredX + " " + transform.position.x);
+               
+                if (desiredX > transform.position.x + 0.01f)
+                {
+                    forwardMove -= transform.right * Time.deltaTime * 10;
+                }
+                else if (desiredX < transform.position.x - 0.01)
+                {
+                    forwardMove += transform.right * Time.deltaTime * 10;
+                }
 
                 m_rigidBody.MovePosition(m_rigidBody.position + forwardMove);
 

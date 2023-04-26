@@ -1,4 +1,4 @@
-using Supercyan.AnimalPeopleSample;
+ using Supercyan.AnimalPeopleSample;
 using UnityEngine;
 
 public class RocketUpScript : MonoBehaviour

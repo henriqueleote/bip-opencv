@@ -10,9 +10,8 @@ public class GroundTile : MonoBehaviour
 
     private void Start()
     {
-
         groundSpawner = GameObject.FindObjectOfType<GroundSpawner>();
-        SpawnObstacle(2, 4, obstaclePrefab);
+        SpawnObstacle(5, 10, obstaclePrefab);
         SpawnPowerUp();
     }
     private void OnTriggerExit(Collider other)
@@ -52,7 +51,7 @@ public class GroundTile : MonoBehaviour
 
         if (probOfSpawn/100 <= 0.2)
         {
-            SpawnObstacle(5, 7, gameObject);
+            SpawnObstacle(2, 4, gameObject);
         }
         
     }

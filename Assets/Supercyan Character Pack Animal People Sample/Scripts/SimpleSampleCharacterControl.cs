@@ -140,11 +140,11 @@ namespace Supercyan.AnimalPeopleSample
                 }
                 if (Input.GetKeyDown(KeyCode.LeftArrow))
                 {
-                    StartCoroutine(MoveRight());
+                    MoveRight();
                 }
                 else if (Input.GetKeyDown(KeyCode.RightArrow))
                 {
-                    StartCoroutine(MoveLeft());
+                    MoveLeft();
                 }
             }
 
@@ -154,29 +154,21 @@ namespace Supercyan.AnimalPeopleSample
             }
         }
 
-        private IEnumerator MoveLeft()
+        private void MoveLeft()
         {
-            if (transform.position.x > -0.5f && m_canMove)
+            if (desiredX > -0.5f )
             {
-                m_canMove = false;
                 desiredX -= 4.0f;
-                yield return new WaitForSeconds(0.2f);
-                m_canMove = true;
             }
-
-            yield return null;
+            
         }
 
-        private IEnumerator MoveRight()
+        private void MoveRight()
         {
-            if (transform.position.x < 0.5f && m_canMove)
+            if (desiredX < 0.5f)
             {
-                m_canMove = false;
                 desiredX += 4.0f;
-                yield return new WaitForSeconds(0.2f);
-                m_canMove = true;
             }
-            yield return null;
         }
 
         private void FixedUpdate()

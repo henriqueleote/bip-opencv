@@ -67,9 +67,10 @@ while True:
                 1, (0, 0, 255), 2, cv2.LINE_AA)
 
     if(gesture!=''):
-        print(gesture)
-        # Send gesture through the socket connection
-        socket.sendto(str.encode(str(gesture)), serverAddressPort)
+        if(gesture=='peace' or gesture=='okay' or gesture=='live long'):
+            print(gesture)
+            # Send gesture through the socket connection
+            socket.sendto(str.encode(str(gesture)), serverAddressPort)
 
 
     # Show the final output

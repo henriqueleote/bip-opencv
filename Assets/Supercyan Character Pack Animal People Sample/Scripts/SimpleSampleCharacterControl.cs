@@ -26,9 +26,15 @@ namespace Supercyan.AnimalPeopleSample
 
         private bool m_isGrounded;
         private bool m_isIdle;
-        private bool m_canMove = true;
 
         private List<Collider> m_collisions = new List<Collider>();
+
+        private SocketConnection socketConnection;
+
+        void Start()
+        {
+            socketConnection = GetComponent<SocketConnection>();
+        }
 
         public void AudioStop()
         {
@@ -132,21 +138,40 @@ namespace Supercyan.AnimalPeopleSample
 
         private void Update()
         {
+            string action = socketConnection.action;
+            //Debug.Log(action);
             if (!m_jumpInput && !m_isIdle)
             {
-                if (Input.GetKeyDown(KeyCode.UpArrow))
+                if (action.Equals("okay"))
                 {
                     m_jumpInput = true;
                 }
-                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                if (action.Equals("peace"))
                 {
-                    StartCoroutine(MoveRight());
+                    MoveRight();
                 }
-                else if (Input.GetKeyDown(KeyCode.RightArrow))
+                if (action.Equals("live long"))
                 {
-                    StartCoroutine(MoveLeft());
+                    MoveLeft();
                 }
+                socketConnection.action = "";
             }
+            
+            //if (!m_jumpInput && !m_isIdle)
+            //{
+            //    if (Input.GetKeyDown(KeyCode.UpArrow))
+            //    {
+            //        m_jumpInput = true;
+            //    }
+            //    if (Input.GetKeyDown(KeyCode.LeftArrow))
+            //    {
+            //        MoveRight();
+            //    }
+            //    else if (Input.GetKeyDown(KeyCode.RightArrow))
+            //    {
+            //        MoveLeft();
+            //    }
+            //}
 
             if (m_rigidBody.velocity.y < 0)
             {
@@ -154,29 +179,21 @@ namespace Supercyan.AnimalPeopleSample
             }
         }
 
-        private IEnumerator MoveLeft()
+        private void MoveLeft()
         {
-            if (transform.position.x > -0.5f && m_canMove)
+            if (desiredX > -0.5f)
             {
-                m_canMove = false;
                 desiredX -= 4.0f;
-                yield return new WaitForSeconds(0.2f);
-                m_canMove = true;
             }
 
-            yield return null;
         }
 
-        private IEnumerator MoveRight()
+        private void MoveRight()
         {
-            if (transform.position.x < 0.5f && m_canMove)
+            if (desiredX < 0.5f)
             {
-                m_canMove = false;
                 desiredX += 4.0f;
-                yield return new WaitForSeconds(0.2f);
-                m_canMove = true;
             }
-            yield return null;
         }
 
         private void FixedUpdate()
@@ -194,8 +211,6 @@ namespace Supercyan.AnimalPeopleSample
             if (!m_isIdle)
             {
                 Vector3 forwardMove = transform.forward * m_moveSpeed * Time.fixedDeltaTime;
-
-                Debug.Log(desiredX + " " + transform.position.x);
                
                 if (desiredX > transform.position.x + 0.01f)
                 {

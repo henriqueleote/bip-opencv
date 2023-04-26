@@ -10,37 +10,20 @@ using UnityEngine;
 public class SocketConnection : MonoBehaviour
 {
     Thread receiveThread;
-
-
-
-
-
     public int port = 5052;
-
-
-
     private bool startReceiving = false;
-
-
-
     public bool printToConsole = false;
-
-
-
     public string ReceivedData;
-
-
-
 
     Socket socket;
     UdpClient client;
 
-
-
-
+    public string action;
+    
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
+        action = "";
         startReceiving = false;
         StartConnection();
     }
@@ -55,17 +38,10 @@ public class SocketConnection : MonoBehaviour
         receiveThread.IsBackground = true;
         receiveThread.Start();
 
-
-
         startReceiving = true;
-
-
 
         Debug.Log("Connected");
     }
-
-
-
 
 
     private void ReceiveData()
@@ -76,23 +52,21 @@ public class SocketConnection : MonoBehaviour
             {
                 byte[] dataByte = new byte[1024];
 
-
-
                 IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, 0);
-
-
 
                 dataByte = client.Receive(ref anyIP);
                 ReceivedData = Encoding.UTF8.GetString(dataByte);
 
 
-
                 if (printToConsole)
                 {
-                    Debug.Log(ReceivedData);
+                    //Debug.Log(ReceivedData);
                 }
 
-
+                if (action.Equals(""))
+                {
+                    action = ReceivedData;
+                }
 
             }
             catch (Exception err)
@@ -104,9 +78,6 @@ public class SocketConnection : MonoBehaviour
 
 
     }
-
-
-
 
 
     private void OnDestroy()

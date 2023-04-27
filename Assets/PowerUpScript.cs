@@ -17,6 +17,7 @@ public class PowerUpScript : MonoBehaviour
             points.SetModified(true);
             points.SetPoints(points.GetPoints());
             tp.SetTimer();
+            Destroy(gameObject);
         }
     }
 }

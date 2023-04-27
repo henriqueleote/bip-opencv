@@ -22,6 +22,7 @@ public class ChangeSkyBox : MonoBehaviour
         {
             int r = Random.Range(0, 3);
             RenderSettings.skybox = skyboxes[r];
+            Destroy(gameObject);
         }
     }
 }

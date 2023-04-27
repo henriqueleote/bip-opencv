@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Windows;
 
 namespace Supercyan.AnimalPeopleSample
 {
@@ -180,10 +179,10 @@ namespace Supercyan.AnimalPeopleSample
                     }
                 }
                 socketConnection.action = "";
-                }                
+                }
 
 
-            
+
 
 
             //sign language script
@@ -207,21 +206,21 @@ namespace Supercyan.AnimalPeopleSample
 
             //keyboard input script
 
-            //if (!m_jumpInput && !m_isIdle)
-            //{
-            //    if (Input.GetKeyDown(KeyCode.UpArrow))
-            //    {
-            //        m_jumpInput = true;
-            //    }
-            //    if (Input.GetKeyDown(KeyCode.LeftArrow))
-            //    {
-            //        MoveRight();
-            //    }
-            //    else if (Input.GetKeyDown(KeyCode.RightArrow))
-            //    {
-            //        MoveLeft();
-            //    }
-            //}
+            if (!m_jumpInput && !m_isIdle)
+            {
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    m_jumpInput = true;
+                }
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    MoveRight();
+                }
+                else if (Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    MoveLeft();
+                }
+            }
 
             if (m_rigidBody.velocity.y < 0)
             {

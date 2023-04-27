@@ -1528,7 +1528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4e7de904ddf0b1428efaf65dfcfa722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PortalPrefab: {fileID: 4662372244261481421, guid: a7b5d95fbde878941b8328ddd795dc50, type: 3}
+  PortalPrefab: {fileID: 3071407714006145773, guid: 9420ad8affe6eb148926fbf084803b89, type: 3}
 --- !u!1001 &1686444527
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ public class SpawnPortal : MonoBehaviour
 
     float timer = 0f;
     float duration = 10f; // the duration of the timer in seconds
-    float z = -200f;
+    float z = -50f;
 
     // Update is called once per frame
     void Update()
@@ -18,14 +18,14 @@ public class SpawnPortal : MonoBehaviour
         if (timer >= duration)
         {
             Spawn();
-            z -= 200f;
+            z -= 250f;
             timer = 0f;
         }
     }
     
     void Spawn()
     {
-        Vector3 spawnPoint = new Vector3(0f, -0.08430409f, z); // replace this with the desired spawn location
-        Instantiate(PortalPrefab, spawnPoint, Quaternion.identity);
+        Vector3 spawnPoint = new Vector3(0f, 1.5f, z); // replace this with the desired spawn location
+        Instantiate(PortalPrefab, spawnPoint, Quaternion.Euler(0, 90, 0));
     }
 }

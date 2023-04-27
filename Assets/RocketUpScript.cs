@@ -17,8 +17,9 @@ public class RocketUpScript : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            sCP.SetJump(8);
+            sCP.SetJump(10);
             timer.SetTimer();
+            Destroy(gameObject);
         }
     }
 }

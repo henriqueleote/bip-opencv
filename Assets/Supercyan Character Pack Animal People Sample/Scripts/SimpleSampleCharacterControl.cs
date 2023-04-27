@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Windows;
 
 namespace Supercyan.AnimalPeopleSample
 {
@@ -12,6 +13,8 @@ namespace Supercyan.AnimalPeopleSample
         private float m_moveSpeed = 4f;
         private float m_jumpForce = 7f;
         private float fallMultiplier = 2f;
+        int lastPosition = 0;
+
 
         private new AudioSource audio;
 
@@ -139,24 +142,71 @@ namespace Supercyan.AnimalPeopleSample
         private void Update()
         {
             string action = socketConnection.action;
-            //Debug.Log(action);
-            if (!m_jumpInput && !m_isIdle)
-            {
-                if (action.Equals("okay"))
+            int x = socketConnection.positionX;
+            if (x == 0 && x < 100) x = 400;
+
+                //position script
+
+                if (!m_jumpInput && !m_isIdle)
                 {
-                    m_jumpInput = true;
-                }
-                if (action.Equals("peace"))
+                    if (action.Equals("jump"))
+                    {
+                        m_jumpInput = true;
+                    }
+                    //do meio p esquerda
+                    if (x < 250)
+                    {
+                        MoveRight();
+                        MoveRight();
+                        lastPosition = -1;
+                    }
+                    if (x > 430)
+                    {
+                        MoveLeft();
+                        MoveLeft();
+                        lastPosition = 1;
+                    }
+                if (x > 250 && x < 430)
                 {
-                    MoveRight();
-                }
-                if (action.Equals("live long"))
-                {
-                    MoveLeft();
+                    if (lastPosition == 1)
+                    {
+                        MoveRight();
+                        lastPosition = 0;
+                    }
+                    if (lastPosition == -1)
+                    {
+                        MoveLeft();
+                        lastPosition = 0;
+                    }
                 }
                 socketConnection.action = "";
-            }
+                }                
+
+
             
+
+
+            //sign language script
+
+            //if (!m_jumpInput && !m_isIdle)
+            //{
+            //    if (action.Equals("okay"))
+            //    {
+            //        m_jumpInput = true;
+            //    }
+            //    if (action.Equals("peace"))
+            //    {
+            //        MoveRight();
+            //    }
+            //    if (action.Equals("live long"))
+            //    {
+            //        MoveLeft();
+            //    }
+            //    socketConnection.action = "";
+            //}
+
+            //keyboard input script
+
             //if (!m_jumpInput && !m_isIdle)
             //{
             //    if (Input.GetKeyDown(KeyCode.UpArrow))

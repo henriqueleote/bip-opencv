@@ -14,6 +14,8 @@ public class SocketConnection : MonoBehaviour
     private bool startReceiving = false;
     public bool printToConsole = false;
     public string ReceivedData;
+    public string lastReceivedData;
+    public int positionX;
 
     Socket socket;
     UdpClient client;
@@ -63,10 +65,18 @@ public class SocketConnection : MonoBehaviour
                     //Debug.Log(ReceivedData);
                 }
 
-                if (action.Equals(""))
+                if (!string.IsNullOrEmpty(ReceivedData))
                 {
-                    action = ReceivedData;
-                }
+                    if (!ReceivedData.Equals("jump"))
+                    {
+                        string correctPosition = ReceivedData.Substring(1, ReceivedData.Length - 2);
+                        positionX = int.Parse(correctPosition.Substring(0, 3));
+                        Debug.Log(correctPosition + "..." + positionX);
+                    }
+                    else
+                        action = "jump";
+                }                  
+                
 
             }
             catch (Exception err)

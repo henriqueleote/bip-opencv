@@ -1,89 +1,67 @@
-# import necessary packages
 import cv2
-import numpy as np
 import mediapipe as mp
-import tensorflow as tf
 import socket
 
-# initialize mediapipe
-mpHands = mp.solutions.hands
-hands = mpHands.Hands(max_num_hands=1, min_detection_confidence=0.7)
-mpDraw = mp.solutions.drawing_utils
+mp_drawing = mp.solutions.drawing_utils
+mp_hands = mp.solutions.hands
 
-# Load the gesture recognizer model
-model = tf.keras.models.load_model('mp_hand_gesture')
-
-old_gesture = "a"
-
-# Load gestures
-f = open('gesture.names', 'r')
-classNames = f.read().split('\n')
-f.close()
-
-# Initialize the webcam
 cap = cv2.VideoCapture(0)
 
-# Initialize socket
 socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 serverAddressPort = ("127.0.0.1", 5052)
 
-while True:
-    # Read each frame from the webcam
-    _, frame = cap.read()
+with mp_hands.Hands(min_detection_confidence=0.5, min_tracking_confidence=0.5, max_num_hands=1) as hands_detection:
+    while cap.isOpened():
+        ret, frame = cap.read()
 
-    x, y, c = frame.shape
+        # Flip the frame horizontally for a mirrored view
+        frame = cv2.flip(frame, 1)
 
-    # Flip the frame vertically
-    frame = cv2.flip(frame, 1)
-    framergb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        # Get the height and width of the frame
+        height, width, _ = frame.shape
 
-    # Get hand landmark prediction
-    result = hands.process(framergb)
+        # Calculate the section boundaries
+        left_boundary = 0
+        right_boundary = int(width * 0.33)
+        middle_boundary = int(width * 0.67)
 
-    # print(result)
+        # Convert the frame to RGB for processing with MediaPipe
+        rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-    gesture = ''
+        # Detect the hands in the frame
+        results = hands_detection.process(rgb_frame)
 
-    # post process the result
-    if result.multi_hand_landmarks:
-        landmarks = []
-        for handslms in result.multi_hand_landmarks:
-            for lm in handslms.landmark:
-                # print(id, lm)
-                lmx = int(lm.x * x)
-                lmy = int(lm.y * y)
+        # Draw the section boundaries on the frame
+        cv2.rectangle(frame, (left_boundary, 0), (right_boundary, height), (0, 0, 0), 2)
+        cv2.rectangle(frame, (right_boundary, 0), (middle_boundary, height), (0, 0, 0), 2)
+        cv2.rectangle(frame, (middle_boundary, 0), (width, height), (0, 0, 0), 2)
 
-                landmarks.append([lmx, lmy])
+        # Check if the right hand was detected
+        if results.multi_hand_landmarks and results.multi_handedness[0].classification[0].label == 'Right':
+            # Get the coordinates of the first hand landmark
+            hand_landmarks = results.multi_hand_landmarks[0]
+            x, y = int(hand_landmarks.landmark[0].x * frame.shape[1]), int(hand_landmarks.landmark[0].y * frame.shape[0])
+            position = (x, y)
+            print(position)
+            socket.sendto(str.encode(str(position)), serverAddressPort)
+            # Check if the hand is closed
+            if hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].y > hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_MCP].y and \
+                    hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_TIP].y > hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_MCP].y and \
+                    hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_TIP].y > hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_MCP].y and \
+                    hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_TIP].y > hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_MCP].y:
+                print("jump")
+                socket.sendto(str.encode(str("jump")), serverAddressPort)
 
-            # Drawing landmarks on frames
-            mpDraw.draw_landmarks(frame, handslms, mpHands.HAND_CONNECTIONS)
-
-            # Predict gesture
-            prediction = model.predict([landmarks])
-            # print(prediction)
-            classID = np.argmax(prediction)
-            gesture = classNames[classID]
-
-    # show the gesture on the frame
-    cv2.putText(frame, gesture, (10, 50), cv2.FONT_HERSHEY_SIMPLEX,
-                1, (0, 0, 255), 2, cv2.LINE_AA)
-
-    #if(gesture!=''):
-    if(gesture=='peace' or gesture=='okay' or gesture=='live long' or gesture==''):
-        if(gesture != old_gesture):
-            old_gesture = gesture
-            print(gesture)
-            # Send gesture through the socket connection
-            socket.sendto(str.encode(str(gesture)), serverAddressPort)
+            # Draw the hand landmarks on the frame
+            mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
 
 
-    # Show the final output
-    cv2.imshow("Output", frame)
+        # Display the frame
+        cv2.imshow('Hand Detection', frame)
 
-    if cv2.waitKey(1) == ord('q'):
-        break
+        # Exit on key press
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
 
-# release the webcam and destroy all active windows
 cap.release()
-
 cv2.destroyAllWindows()

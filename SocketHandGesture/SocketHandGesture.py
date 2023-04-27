@@ -13,6 +13,8 @@ mpDraw = mp.solutions.drawing_utils
 # Load the gesture recognizer model
 model = tf.keras.models.load_model('mp_hand_gesture')
 
+old_gesture = "a"
+
 # Load gestures
 f = open('gesture.names', 'r')
 classNames = f.read().split('\n')
@@ -66,8 +68,10 @@ while True:
     cv2.putText(frame, gesture, (10, 50), cv2.FONT_HERSHEY_SIMPLEX,
                 1, (0, 0, 255), 2, cv2.LINE_AA)
 
-    if(gesture!=''):
-        if(gesture=='peace' or gesture=='okay' or gesture=='live long'):
+    #if(gesture!=''):
+    if(gesture=='peace' or gesture=='okay' or gesture=='live long' or gesture==''):
+        if(gesture != old_gesture):
+            old_gesture = gesture
             print(gesture)
             # Send gesture through the socket connection
             socket.sendto(str.encode(str(gesture)), serverAddressPort)

@@ -4,13 +4,12 @@ public class GroundTile : MonoBehaviour
 {
     GroundSpawner groundSpawner;
     public GameObject obstaclePrefab;
-
     public GameObject PowerUpPrefabBoost;
     public GameObject PowerUpPrefabPoints;
 
     private void Start()
     {
-        groundSpawner = GameObject.FindObjectOfType<GroundSpawner>();
+        groundSpawner = FindObjectOfType<GroundSpawner>();
         SpawnObstacle(5, 10, obstaclePrefab);
         SpawnPowerUp();
     }
@@ -22,8 +21,6 @@ public class GroundTile : MonoBehaviour
             Destroy(gameObject, 2);
         }
     }
-
-    private void Update() { }
 
     void SpawnObstacle(int begin, int end, GameObject gameObject)
     {

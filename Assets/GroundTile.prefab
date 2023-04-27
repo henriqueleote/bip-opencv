@@ -197,6 +197,7 @@ Transform:
   - {fileID: 2766795387135905345}
   - {fileID: 510560425719910579}
   - {fileID: 3443312007010023042}
+  - {fileID: 1259808442900801495}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -228,6 +229,7 @@ MonoBehaviour:
   obstaclePrefab: {fileID: 1366669446264387379, guid: e77fd836a5a229e4aa76d33fc8e8870b, type: 3}
   PowerUpPrefabBoost: {fileID: 8635109161051216281, guid: 4654f53947129924ab31b59da6dad1d9, type: 3}
   PowerUpPrefabPoints: {fileID: 8611808700699729934, guid: 79f0db94473cc7540a9c3ac8843a8f6b, type: 3}
+  PortalPrefab: {fileID: 4662372244261481421, guid: a7b5d95fbde878941b8328ddd795dc50, type: 3}
 --- !u!1 &5756995489616358523
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,6 +353,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5896729468813254794}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7706787567417759459
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1259808442900801495}
+  m_Layer: 0
+  m_Name: PortalSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1259808442900801495
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7706787567417759459}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -19.98}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5896729468813254794}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7858760432453850287
 GameObject:

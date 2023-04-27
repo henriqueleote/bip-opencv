@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: f29e02ab87a9b384d93b9a7dfa13cc59, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 07fd563983a38ed4d839faea5145396c, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,8 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.8782073, g: 0.7973645, b: 0.8356578, a: 1}
-  m_IndirectSpecularColor: {r: 0.770165, g: 0.78142667, b: 0.7655402, a: 1}
+  m_IndirectSpecularColor: {r: 0.8569199, g: 0.8043599, b: 0.8336486, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1017,14 +1016,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.091324866, y: 0.0033824237, z: -0.00030878402, w: 0.9958154}
-  m_LocalPosition: {x: -0.04, y: 1.9900001, z: -3.0199995}
+  m_LocalRotation: {x: 0, y: 0.0033946189, z: 0, w: 0.9999943}
+  m_LocalPosition: {x: -0.03, y: 1.3900001, z: -2.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1519164853}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 10.48, y: 0.389, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0.389, z: 0}
 --- !u!1 &1113913777
 GameObject:
   m_ObjectHideFlags: 0
@@ -1515,6 +1514,19 @@ MonoBehaviour:
   printToConsole: 1
   ReceivedData: 
   action: 
+--- !u!114 &1519164860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 563524630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4e7de904ddf0b1428efaf65dfcfa722, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PortalPrefab: {fileID: 4662372244261481421, guid: a7b5d95fbde878941b8328ddd795dc50, type: 3}
 --- !u!1001 &1686444527
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -42,8 +42,6 @@ public class PointsBehaviour : MonoBehaviour
         GetScoreFromSpeed(baseSpeed);
         UpdateSpeed();
 
-        Debug.Log("Points: " + points);
-
         sCP.SetSpeed(baseSpeed);
         poinstSave.SetPoints(points);
 
@@ -53,7 +51,6 @@ public class PointsBehaviour : MonoBehaviour
 
     void UpdateSpeed()
     {
-        Debug.Log("baseSpeed: " + baseSpeed);
         baseSpeed *= Mathf.Exp(2 * k);
     }
 

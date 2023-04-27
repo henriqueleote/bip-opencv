@@ -17,7 +17,7 @@ public class RocketUpScript : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            sCP.SetJump(13);
+            sCP.SetJump(8);
             timer.SetTimer();
         }
     }

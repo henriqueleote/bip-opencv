@@ -197,6 +197,7 @@ MonoBehaviour:
   obstaclePrefab2: {fileID: 4234000469353353550, guid: 5874f60c4f1298c4fa8c5edd3748c3c5, type: 3}
   obstaclePrefab3: {fileID: 1754141670041156347, guid: 5e0503450fea666429d84206894b2d3c, type: 3}
   obstaclePrefab4: {fileID: 3472392127515320497, guid: 8c762f701c955184e9d26b68dbee6c02, type: 3}
+  obstaclePrefab5: {fileID: 5367398693836199329, guid: d8c6765fa9e616f41acc2cad8e9714e0, type: 3}
   PowerUpPrefabBoost: {fileID: 8635109161051216281, guid: 4654f53947129924ab31b59da6dad1d9, type: 3}
   PowerUpPrefabPoints: {fileID: 8611808700699729934, guid: 79f0db94473cc7540a9c3ac8843a8f6b, type: 3}
 --- !u!1 &5756995489616358523

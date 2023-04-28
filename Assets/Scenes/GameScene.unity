@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.751108, g: 0.77449685, b: 0.7766956, a: 1}
+  m_IndirectSpecularColor: {r: 0.751102, g: 0.77448833, b: 0.77669424, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1529,6 +1529,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PortalPrefab: {fileID: 3071407714006145773, guid: 9420ad8affe6eb148926fbf084803b89, type: 3}
+  PortalPrefab2: {fileID: 112408718565731781, guid: f852c19193f34cc448c9bd8aef9273a9, type: 3}
 --- !u!1001 &1686444527
 PrefabInstance:
   m_ObjectHideFlags: 0

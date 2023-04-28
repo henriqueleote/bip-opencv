@@ -7,6 +7,7 @@ public class GroundTile : MonoBehaviour
     public GameObject obstaclePrefab2;
     public GameObject obstaclePrefab3;
     public GameObject obstaclePrefab4;
+    public GameObject obstaclePrefab5;
     public GameObject PowerUpPrefabBoost;
     public GameObject PowerUpPrefabPoints;
 
@@ -28,11 +29,11 @@ public class GroundTile : MonoBehaviour
         {
             if (randomNumber == 0)
             {
-                SpawnObstacle(5, 10, obstaclePrefab);
+                SpawnObstacle(5, 10, obstaclePrefab2);
             }
             else
             {
-                SpawnObstacle(5, 10, obstaclePrefab3);
+                SpawnObstacle(5, 10, obstaclePrefab5);
             }
         }
         else if (currentSkyboxName == "SkyBox-2")
@@ -43,7 +44,7 @@ public class GroundTile : MonoBehaviour
             }
             else
             {
-                SpawnObstacle(5, 10, obstaclePrefab2);
+                SpawnObstacle(5, 10, obstaclePrefab3);
             }
         }
         else if (currentSkyboxName == "SkyBox-3")
@@ -70,10 +71,19 @@ public class GroundTile : MonoBehaviour
 
     void SpawnObstacle(int begin, int end, GameObject a)
     {
-        Debug.Log("SpawnObstacle");
         int obstacleSpawnIndex = Random.Range(begin, end);
         Transform spawnPoint = transform.GetChild(obstacleSpawnIndex).transform;
-        Instantiate(a, spawnPoint.position, Quaternion.identity, transform);
+
+        if (a.name == "rock")
+        {
+            Vector3 spawnPosition = new Vector3(spawnPoint.position.x, spawnPoint.position.y - 0.3f, spawnPoint.position.z);
+            Instantiate(a, spawnPosition, Quaternion.identity, transform);
+        }
+        else
+        {
+            Instantiate(a, spawnPoint.position, Quaternion.identity, transform);
+        }
+        
     }
 
     void SpawnPowerUp()

@@ -20,12 +20,23 @@ public class ChangeSkyBox : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            int r = Random.Range(0, 3);
-            while (RenderSettings.skybox.name == skyboxes[r].name)
+            // Create a list of indices that don't correspond to the current skybox
+            List<int> validIndices = new List<int>();
+            for (int i = 0; i < skyboxes.Count; i++)
             {
-                r = Random.Range(0, 3);
+                if (skyboxes[i] != RenderSettings.skybox)
+                {
+                    validIndices.Add(i);
+                }
             }
-            RenderSettings.skybox = skyboxes[r];
+
+            // If there are valid indices, select a random one and set the skybox
+            if (validIndices.Count > 0)
+            {
+                int randomIndex = validIndices[Random.Range(0, validIndices.Count)];
+                RenderSettings.skybox = skyboxes[randomIndex];
+            }
+            
             Destroy(gameObject);
         }
     }

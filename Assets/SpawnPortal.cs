@@ -8,7 +8,7 @@ public class SpawnPortal : MonoBehaviour
 
     float timer = 0f;
     float duration = 10f; // the duration of the timer in seconds
-    float z = -50f;
+    float z = -300f;
 
     // Update is called once per frame
     void Update()
@@ -18,7 +18,7 @@ public class SpawnPortal : MonoBehaviour
         if (timer >= duration)
         {
             Spawn();
-            z -= 250f;
+            z -= 300f;
             timer = 0f;
         }
     }

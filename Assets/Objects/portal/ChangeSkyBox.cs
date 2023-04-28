@@ -21,6 +21,10 @@ public class ChangeSkyBox : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             int r = Random.Range(0, 3);
+            while (RenderSettings.skybox.name == skyboxes[r].name)
+            {
+                r = Random.Range(0, 3);
+            }
             RenderSettings.skybox = skyboxes[r];
             Destroy(gameObject);
         }

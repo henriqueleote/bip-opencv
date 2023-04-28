@@ -71,7 +71,7 @@ public class SocketConnection : MonoBehaviour
                     {
                         string correctPosition = ReceivedData.Substring(1, ReceivedData.Length - 2);
                         positionX = int.Parse(correctPosition.Substring(0, 3));
-                        Debug.Log(correctPosition + "..." + positionX);
+                        Debug.Log(positionX);
                     }
                     else
                         action = "jump";

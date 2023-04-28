@@ -45,8 +45,8 @@ public class PointsBehaviour : MonoBehaviour
         sCP.SetSpeed(baseSpeed);
         poinstSave.SetPoints(points);
 
-        pointsText.text = "Points: " + Math.Round(points, 2).ToString();
-        speedText.text = "Speed: " + Math.Round(baseSpeed, 2).ToString();
+        pointsText.text = "Points: " + Math.Round(points).ToString();
+        speedText.text = "Speed: " + Math.Round(baseSpeed).ToString();
     }
 
     void UpdateSpeed()

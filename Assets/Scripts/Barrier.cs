@@ -60,7 +60,6 @@ public class Barrier : MonoBehaviour
             exitText.enabled = true;
 
             sCP.SetSpeed(0);
-            speedText.text = "Speed: 0";
             sCP.SetIdle();
         }
 
